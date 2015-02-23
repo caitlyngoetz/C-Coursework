@@ -1,0 +1,65 @@
+******************************************
+*Project: Program 0/Lab Setup
+*Class: CompSci 253-001
+*Date: January 23, 2015
+*Name: Caitlyn Goetz
+******************************************
+
+OVERVIEW:
+
+	This program takes in a text file one element at a time and then
+	it counts how many characters, digits, lines and words there are
+	in it.  Then it outputs the results.
+
+INCLUDED FILES:
+
+	*wordcount.c - the file that does all the reading and counting
+	*Makefile - the file that compiles the program and checks for errors
+	*README - this file that explains the other files
+
+BUILDING AND RUNNING:
+
+	From the directory containing the source files, compile the files
+	by typing:
+		
+		make
+
+	As long as no errors were caught, you can run the program by typing:
+
+		wordcount < [filename]
+
+PROGRAM DESIGN:
+
+	This program is written so that the variables get initialized and defined
+	at the top before the main line is called.  Next the text file gets read
+	into this program one element at a line until the end of file (EOF) is found.
+	The elements are then passed through a series of if statements and the word,
+	line, digit, character counts are incremented. Then once the reader hits the 
+	EOF, the program stops the loop and the print statements are outputted so that
+	the user can read how many of each category there is in their text file.
+
+PROGRAM DEVELOPMENT AND TESTING DISCUSSION:
+
+	The output that was requested when I typed in cat .git/config is here:
+
+	[cgoetz@node24 CS253-lab]$ cat .git/config
+	[core]
+        	repositoryformatversion = 0
+        	filemode = true
+        	bare = false
+        	logallrefupdates = true
+	[remote "origin"]
+        	url = https://github.com/BoiseState/CS253-lab
+        	fetch = +refs/heads/*:refs/remotes/origin/*
+	[branch "master"]
+        	remote = origin
+        	merge = refs/heads/master
+
+
+	I did not encounter many issues with this program.  I did have some snags learning
+	how to write and format in C instead of Java.  For example, some of the lines didn't
+	need to end in a ';' and other strange stuff like that.  I also had a little bit of 
+	an issue with the printf statements simply because I haven't worked very much with 
+	them before.  They are kind of strange and I don't really get the %d thing.  But I am
+	sure it will all clear up with some practice.  Besides those things I thought this 
+	project went smoothly.	

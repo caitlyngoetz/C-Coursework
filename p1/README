@@ -1,0 +1,59 @@
+**********************************
+*Project: Project 1/Fun with Bits
+*Class: CompSci 253 - 001
+*Date: February 5, 2015
+*Name: Caitlyn Goetz
+**********************************
+
+OVERVIEW:
+
+	This program takes in input from the user that is an integer in binary
+	or a decimal formatted integer and it out puts the integer, its binary
+	equivalent and the hexadecimal equivalent.  It also then flips the bits
+	and puts out the new number, the new binary and the new hexadecimal
+	equivalents.
+
+INCLUDED FILES:
+
+	README - this file that explains the program
+	endian.c - this is the program that does all the work of converting and
+		   outputting.
+	Makefile - this program compiles and checks for errors in the program
+	test.sh - a program to test the endian.c on
+	
+BUILDING AND RUNNING:
+
+	From the directory containing the sourc files, compile the files by
+	typing:
+
+		make
+	As long as no errors were caught, you can run the program by typing:
+
+		endian -i|-b <x>
+	-i meaning that you are entering an integer in decimal format
+	-b meaning that you are entering an integer in binary format
+	<x> input a number or a binary number
+
+PROGRAM DESIGN:
+
+	This program is written so that the very first thing that the code 
+	checks for in the main method is how many arguments are passed in.  It
+	then looks to see if -i or -b has ben typed and depending on which one
+	is inputted it goes to making the output for that  section.  If -i is
+	inputted then it takes the decimal and changes it to bits and then 
+	outputs that with the hexidecimal format.  The program then flips the
+	bits on that decimal and outputs the new number, binary code and 
+	hexadecimal.  If the -b is inputted then the program convert the binary 	to a decimal and then outputs that with the hexadecimal format.  Then it	flips the bits and outputs the new number, binary code and the 	
+	hexidecimal format.
+
+PROGRAM DEVELOPMENT AND TESTING DISCUSSION:
+
+	This program was much more dificult than the previous one.  I have never
+	worked with the shifting bits or anything before this semester and I was	unsure how to access those bits.  I am also not as familiar with C as I 	wished I would have been befoer this.  My main problem was that I knew 
+	what I needed to do and I could do it on paper but I could not figure 
+	out how to access that and make the computer do it.  It really hurt my
+	brain to think about it.  I also had a problem when pulling out the 
+	binary code one part of the time and having the 0 still equal 0 instead 	of 48.  Fun fact for you: 0 is a character that represents 48.  I did manage to figure out how to do it without needing
+	to mess with the 48 thing.  All in 
+	all I am fairly happy and confident now that it is over.
+
