@@ -19,6 +19,15 @@ struct list * createList(int (*equals)(const void *,const void *),
 
 void freeList(struct list *list)
 {
+	if(list == NULL) return;
+	struct node *node = list->head;
+	while(node){
+		struct node *temp = node->next;
+		freeNode(node);
+		node = temp;
+	}
+	free(list);
+	list = NULL;
 }
 
 int getSize(const struct list *list)
@@ -49,6 +58,18 @@ void addAtFront(struct list *list, struct node *node)
 
 void addAtRear(struct list *list, struct node *node)
 {
+	if(list == NULL) return;
+	if(node == NULL) return;
+	list->size++;
+	node->next = NULL;
+	node->prev = list->tail;
+	if(list->head == NULL){
+		list->head = node;
+		list->tail = node;
+	}else{
+		list->tail->next = node;
+		list->tail = node;
+	}
 }
 
 struct node* removeFront(struct list *list)
@@ -68,6 +89,14 @@ struct node* removeNode(struct list *list, struct node *node)
 
 struct node* search(const struct list *list, const void *obj)
 {
+	if(list == NULL) return NULL;
+	struct node *node = list->head;
+	while(node != NULL){
+		if(equals(node->object, object)){
+			return node;
+		}	
+		node = node->next;
+	}
 	return NULL;
 }
 
