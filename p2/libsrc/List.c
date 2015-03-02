@@ -29,12 +29,10 @@ void freeList(struct list *list)
 	free(list);
 	list = NULL;
 }
-//TODO: complete this method
 int getSize(const struct list *list)
 {
-	return 0;
-}
-//TODO:  complete this method 
+	return list->size;
+} 
 int isEmpty(const struct list *list)
 {
 	return list->size == 0;
@@ -55,7 +53,6 @@ void addAtFront(struct list *list, struct node *node)
 		list->head = node;
 	}
 }
-//TODO: complete this method
 void addAtRear(struct list *list, struct node *node)
 {
 	if(list == NULL) return;
@@ -71,7 +68,6 @@ void addAtRear(struct list *list, struct node *node)
 		list->tail = node;
 	}
 }
-//TODO: complete this method
 struct node* removeFront(struct list *list)
 {
 	if(list == NULL) return;
@@ -81,14 +77,26 @@ struct node* removeFront(struct list *list)
 	if(list->size == 1){
 		list->head=list->tail=NULL;
 	}else{
-		head = list->head->next;
-		list
-		//TODO
+		list->head = list->head->next;
+		list->head->prev = NULL:
+	}
+	list->size--;
+	return temp;
 }
-//TODO: complete this method
 struct node* removeRear(struct list *list)
 {
-	return NULL;
+	if(list == NULL) return;
+	
+	struct node *temp = list->tail;
+
+	if(list->size == 1){
+		list->head=list->tail=NULL;
+	}else{
+		list->tail = list->tail->prev;
+		list->tail->next = NULL;
+	}
+	list->size--;
+	return temp;
 }
 //TODO: complete this method
 struct node* removeNode(struct list *list, struct node *node)
@@ -111,6 +119,7 @@ struct node* search(const struct list *list, const void *obj)
 //TODO: complete this method
 void reverseList(struct list *list)
 {
+	return NULL;
 }
 
 void printList(const struct list *list)
