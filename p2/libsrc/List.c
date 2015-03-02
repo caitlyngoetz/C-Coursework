@@ -74,7 +74,16 @@ void addAtRear(struct list *list, struct node *node)
 //TODO: complete this method
 struct node* removeFront(struct list *list)
 {
-	return NULL;
+	if(list == NULL) return;
+	
+	struct node *temp = list-> head;
+
+	if(list->size == 1){
+		list->head=list->tail=NULL;
+	}else{
+		head = list->head->next;
+		list
+		//TODO
 }
 //TODO: complete this method
 struct node* removeRear(struct list *list)
