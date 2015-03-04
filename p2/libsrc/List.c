@@ -19,15 +19,15 @@ struct list * createList(int (*equals)(const void *,const void *),
 
 void freeList(struct list *list)
 {
-	if(list == NULL) return;
-	struct node *node = list->head;
-	while(node){
-		struct node *temp = node->next;
-		freeNode(node);
-		node = temp;
-	}
-	free(list);
-	list = NULL;
+//	if(list == NULL) return;
+//	struct node *node = list->head;
+//	while(node){
+//		struct node *temp = node->next;
+//		freeNode(node);
+//		node = temp;
+//	}
+//	free(list);
+//	list = NULL;
 }
 int getSize(const struct list *list)
 {
@@ -70,7 +70,7 @@ void addAtRear(struct list *list, struct node *node)
 }
 struct node* removeFront(struct list *list)
 {
-	if(list == NULL) return;
+	if(list == NULL) return NULL;
 	
 	struct node *temp = list-> head;
 
@@ -78,14 +78,14 @@ struct node* removeFront(struct list *list)
 		list->head=list->tail=NULL;
 	}else{
 		list->head = list->head->next;
-		list->head->prev = NULL:
+		list->head->prev = NULL;
 	}
 	list->size--;
 	return temp;
 }
 struct node* removeRear(struct list *list)
 {
-	if(list == NULL) return;
+	if(list == NULL) return NULL;
 	
 	struct node *temp = list->tail;
 
@@ -101,6 +101,10 @@ struct node* removeRear(struct list *list)
 //TODO: complete this method
 struct node* removeNode(struct list *list, struct node *node)
 {
+	if(list == NULL) return NULL;
+	if(node == NULL) return NULL;
+	//if(search(list, *node) == NULL) return NULL:
+
 	return NULL;
 }
 
@@ -109,7 +113,7 @@ struct node* search(const struct list *list, const void *obj)
 	if(list == NULL) return NULL;
 	struct node *node = list->head;
 	while(node != NULL){
-		if(equals(node->object, object)){
+		if(equals(node->obj, obj)){
 			return node;
 		}	
 		node = node->next;
@@ -119,7 +123,7 @@ struct node* search(const struct list *list, const void *obj)
 //TODO: complete this method
 void reverseList(struct list *list)
 {
-	return NULL;
+
 }
 
 void printList(const struct list *list)
