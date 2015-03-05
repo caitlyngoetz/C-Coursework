@@ -19,22 +19,24 @@ struct list * createList(int (*equals)(const void *,const void *),
 
 void freeList(struct list *list)
 {
-//	if(list == NULL) return;
-//	struct node *node = list->head;
-//	while(node){
-//		struct node *temp = node->next;
-//		freeNode(node);
-//		node = temp;
-//	}
-//	free(list);
-//	list = NULL;
+	if(list == NULL) return;
+	struct node *temp = list->head;
+	while(temp != NULL){
+		list->head = list->head->next;
+		temp->next = temp->prev = NULL;
+		freeNode(temp, list->freeObject);
+		temp = list->head;
+	}
+	free(list);
 }
 int getSize(const struct list *list)
 {
+	if(list == NULL) return NULL;
 	return list->size;
 } 
 int isEmpty(const struct list *list)
 {
+	if(list == NULL) return NULL;
 	return list->size == 0;
 }
 
@@ -98,32 +100,55 @@ struct node* removeRear(struct list *list)
 	list->size--;
 	return temp;
 }
-//TODO: complete this method
+
 struct node* removeNode(struct list *list, struct node *node)
 {
 	if(list == NULL) return NULL;
 	if(node == NULL) return NULL;
-	//if(search(list, *node) == NULL) return NULL:
 
-	return NULL;
+	if(node == list->head){ 
+		node = removeFront(list);
+	}else if(node == list->tail){
+		node = removeRear(list);
+	}else{
+		node->prev->next = node->next;
+		node->next->prev = node->prev;
+		node->next = node->prev = NULL;
+		list->size--;
+	}
+	return node;
+	
 }
 
 struct node* search(const struct list *list, const void *obj)
 {
 	if(list == NULL) return NULL;
-	struct node *node = list->head;
-	while(node != NULL){
-		if(equals(node->obj, obj)){
-			return node;
+	if(obj == NULL) return NULL;
+
+	struct node *curr = list->head;
+	while(curr != NULL){
+		if((list->equals)(curr->obj, obj)){
+			return curr;
 		}	
-		node = node->next;
+		curr = curr->next;
 	}
 	return NULL;
 }
-//TODO: complete this method
+
 void reverseList(struct list *list)
 {
+	if(list == NULL) return NULL;
 
+	struct node *temp = list->head;
+	struct node *curr = list->head;
+	while(curr != NULL){
+		curr = curr->next;
+		list->head->next = list->head->prev;
+		list->head->prev = curr;
+		list->head = curr;
+	}
+	list->head = list->tail;
+	list->tail = temp;
 }
 
 void printList(const struct list *list)
