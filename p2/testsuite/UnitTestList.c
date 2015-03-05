@@ -43,6 +43,14 @@ struct node *createTestNode(int jobid)
 	return node;
 }
 
+int addAtFrontToNullListTest()
+{
+        struct node *node = createTestNode(1);
+        addAtFront(NULL, node);
+        freeNode(node, testlist->freeObject);
+        return 1;
+}
+
 int addAtFrontWithNoNodes()
 {
 	struct node *node = createTestNode(1);
@@ -57,8 +65,18 @@ int addAtFrontWithNoNodes()
 
 int addAtFrontWithOneNode()
 {
-	printTestInfo("addAtFrontWithOneNode", "(not implemented)");
-	return 0;
+	struct node *node = createTestNode(1);
+        addAtFront(testlist, node);
+        myassert(testlist->size == 1);
+
+        struct node *node2 = createTestNode(2);
+        addAtFront(testlist, node2);
+
+        myassert(testlist->size == 2);
+        myassert(testlist->head == node2)
+        myassert(node2->next == node)
+        myassert(testlist->head->next->next == NULL)
+        return 1;
 }
 
 int addAtRearWithNoNodes()
@@ -85,6 +103,24 @@ int nullNodeTest()
 	return 0;
 }
 
+int searchEmptyListTest()
+{
+	printTestInfo("searchEmptyListTest", "(not implemented)");
+        return 1;
+}
+
+int searchListNotFound()
+{
+	printTestInfo("searchListNotFound", "(not implemented)");
+        return 1;
+}
+
+int searchListFound()
+{
+	printTestInfo("searchListNotFound", "(not implemented)");
+        return 1;
+}
+
 void beforeTest(char* testName)
 {
 	printTestInfo(testName, "Running...");
@@ -105,6 +141,11 @@ void runUnitTests()
 {
 	int result;
 	char *testName;
+
+        testName = "addAtFrontToNullListTest";
+        beforeTest(testName);
+        result = addAtFrontToNullListTest();
+        afterTest(testName, result);
 
 	testName = "addAtFrontWithNoNodes";
 	beforeTest(testName);
@@ -135,6 +176,21 @@ void runUnitTests()
 	beforeTest(testName);
 	result = nullNodeTest();
 	afterTest(testName, result);
+
+	testName = "searchEmptyListTest";
+        beforeTest(testName);
+        result = nullNodeTest();
+        afterTest(testName, result);
+
+	testName = "searchListNotFound";
+        beforeTest(testName);
+        result = nullNodeTest();
+        afterTest(testName, result);
+
+	testName = "searchListFound";
+        beforeTest(testName);
+        result = nullNodeTest();
+        afterTest(testName, result);
 
 	//TODO: Add in your tests here
 
