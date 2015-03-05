@@ -31,12 +31,12 @@ void freeList(struct list *list)
 }
 int getSize(const struct list *list)
 {
-	if(list == NULL) return NULL;
+	if(list == NULL) return 0;
 	return list->size;
 } 
 int isEmpty(const struct list *list)
 {
-	if(list == NULL) return NULL;
+	if(list == NULL) return 1;
 	return list->size == 0;
 }
 
@@ -137,7 +137,7 @@ struct node* search(const struct list *list, const void *obj)
 
 void reverseList(struct list *list)
 {
-	if(list == NULL) return NULL;
+	if(list == NULL) return;
 
 	struct node *temp = list->head;
 	struct node *curr = list->head;
