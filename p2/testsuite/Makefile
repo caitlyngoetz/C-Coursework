@@ -6,6 +6,10 @@ LFLAGS=-L$(LIBS) -lmylib
 CC=gcc
 CFLAGS=-Wall -g  -I$(INCLUDE)
 
+
+
+
+
 PROGS=RandomTestList SimpleTestList UnitTestList
 
 all: $(PROGS)
@@ -22,3 +26,5 @@ UnitTestList: UnitTestList.o Object.o
 
 clean:
 	rm --force list *.o $(PROGS)
+
+
