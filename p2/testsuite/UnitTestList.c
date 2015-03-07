@@ -60,6 +60,8 @@ int addAtFrontWithNoNodes()
 	myassert(testlist->tail == node)
 	myassert(testlist->head->next == NULL)
 	myassert(testlist->head->prev == NULL)
+	myassert(testlist->tail->next == NULL)
+	myassert(testlist->tail->prev == NULL)
 	return 1;
 }
 
@@ -74,21 +76,45 @@ int addAtFrontWithOneNode()
 
         myassert(testlist->size == 2);
         myassert(testlist->head == node2)
+	myassert(testlist->tail == node)
         myassert(node2->next == node)
+	myassert(node->prev == node2)
         myassert(testlist->head->next->next == NULL)
+	myassert(testlist->tail->prev->prev == NULL)
         return 1;
 }
 
 int addAtRearWithNoNodes()
 {
-	printTestInfo("addAtRearWithNoNodes", "(not implemented)");
-	return 0;
+	struct node *node = createTestNode(1);
+	addAtRear(testlist, node);
+	myassert(testlist->size == 1);
+	myassert(testlist->head == node);
+	myassert(testlist->tail == node);
+	myassert(testlist->head->next == NULL);
+	myassert(testlist->head->prev == NULL);
+	myassert(testlist->tail->next == NULL);
+	myassert(testlist->tail->prev == NULL);
+	return 1;
 }
 
 int addAtRearWithOneNode()
 {
-	printTestInfo("addAtRearWithOneNode", "(not implemented)");
-	return 0;
+	struct node *node = createTestNode(1);
+	addAtRear(testlist, node);
+	myassert(testlist->size == 1);
+
+	struct node *node2 = createTestNode(2);
+	addAtRear(testlist, node2);
+	myassert(testlist->size == 2);
+
+	myassert(testlist->head == node);
+	myassert(testlist->tail == node2);
+	myassert(node->next == node2);
+	myassert(node2->prev == node);
+	myassert(testlist->head->next->next == NULL);
+	myassert(testlist->tail->prev->prev == NULL);
+	return 1;
 }
 
 int removeFromListWithOneNode()
