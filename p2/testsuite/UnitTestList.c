@@ -119,34 +119,147 @@ int addAtRearWithOneNode()
 
 int removeFromListWithOneNode()
 {
-	printTestInfo("removeFromListWithOneNode", "(not implemented)");
-	return 0;
+	struct node *node = createTestNode(1);
+	addAtFront(testlist, node);
+	myassert(testlist->size == 1);
+
+	removeNode(testlist, node);
+	myassert(testlist->size == 0);
+	myassert(testlist->head == NULL);
+	myassert(testlist->tail == NULL);
+	freeNode(node, testlist->freeObject);
+	return 1;
 }
 
 int nullNodeTest()
 {
-	printTestInfo("nullNodeTest", "(not implemented)");
-	return 0;
+	struct node *node = NULL;
+	addAtFront(testlist, node);
+	
+	myassert(testlist->size == 0);
+	myassert(testlist->head == NULL);
+	myassert(testlist->tail == NULL);
+	return 1;
 }
 
 int searchEmptyListTest()
 {
-	printTestInfo("searchEmptyListTest", "(not implemented)");
-        return 1;
+	struct node *node = createTestNode(1);
+	search(NULL, node);
+	freeNode(node, testlist->freeObject);
+	return 1;
 }
 
 int searchListNotFound()
 {
-	printTestInfo("searchListNotFound", "(not implemented)");
-        return 1;
+	struct node *node = createTestNode(1);
+	search(testlist, node);
+	myassert(testlist->size == 0);
+	freeNode(node, testlist->freeObject);
+	return 1;
 }
 
 int searchListFound()
 {
-	printTestInfo("searchListNotFound", "(not implemented)");
-        return 1;
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	addAtFront(testlist, node);
+	addAtRear(testlist, node2);
+	
+	search(testlist, node2);
+	return 1;
 }
 
+int reverseListTwoNodes()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	addAtFront(testlist, node);
+	addAtRear(testlist, node2);
+
+	myassert(testlist->size == 2);
+	myassert(testlist->head == node);
+	myassert(testlist->tail == node2);
+
+	reverseList(testlist);
+	myassert(testlist->size == 2);
+	myassert(testlist->head == node2);
+	myassert(testlist->tail == node);
+	return 1;
+}
+
+int reverseListThreeNodes()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	struct node *node3 = createTestNode(3);
+	addAtFront(testlist, node3);
+	addAtFront(testlist, node2);
+	addAtFront(testlist, node);
+
+	myassert(testlist->size == 3);
+	myassert(testlist->head == node);
+	myassert(testlist->head->next == node2);
+	myassert(testlist->head->next->next == node3);
+	myassert(testlist->tail == node3);
+	myassert(testlist->tail->prev == node2);
+	myassert(testlist->tail->prev->prev == node);
+	myassert(testlist->head->prev == NULL);
+	myassert(testlist->tail->next == NULL);
+
+	reverseList(testlist);
+	
+	myassert(testlist->size == 3);
+	myassert(testlist->head == node3);
+	myassert(testlist->head->next == node2);
+	myassert(testlist->head->next->next == node);
+	myassert(testlist->tail == node);
+	myassert(testlist->tail->prev == node2);
+	myassert(testlist->tail->prev->prev == node3);
+	myassert(testlist->head->prev == NULL);
+	myassert(testlist->tail->next == NULL);
+	return 1;
+}
+
+int reverseListFourNodes()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	struct node *node3 = createTestNode(3);
+	struct node *node4 = createTestNode(4);
+
+	addAtFront(testlist, node4);
+	addAtFront(testlist, node3);
+	addAtFront(testlist, node2);
+	addAtFront(testlist, node);
+	
+	myassert(testlist->size == 4);
+	myassert(testlist->head == node);
+	myassert(testlist->head->next == node2);
+	myassert(testlist->head->next->next == node3);
+	myassert(testlist->head->next->next->next == node4);
+	myassert(testlist->tail == node4);
+	myassert(testlist->tail->prev == node3);
+	myassert(testlist->tail->prev->prev == node2);
+	myassert(testlist->tail->prev->prev->prev == node);
+	myassert(testlist->tail->next == NULL);
+	myassert(testlist->head->prev == NULL);
+
+	reverseList(testlist);
+
+	myassert(testlist->size == 4);
+	myassert(testlist->head == node4);
+	myassert(testlist->head->next == node3);
+	myassert(testlist->head->next->next == node2);
+	myassert(testlist->head->next->next->next == node);
+	myassert(testlist->tail == node);
+	myassert(testlist->tail->prev == node2);
+	myassert(testlist->tail->prev->prev == node3);
+	myassert(testlist->tail->prev->prev->prev == node4);
+	myassert(testlist->tail->next == NULL);
+	myassert(testlist->head->prev == NULL);
+	return 1; 
+}
 void beforeTest(char* testName)
 {
 	printTestInfo(testName, "Running...");
@@ -205,18 +318,33 @@ void runUnitTests()
 
 	testName = "searchEmptyListTest";
         beforeTest(testName);
-        result = nullNodeTest();
+        result = searchEmptyListTest();
         afterTest(testName, result);
 
 	testName = "searchListNotFound";
         beforeTest(testName);
-        result = nullNodeTest();
+        result = searchListNotFound();
         afterTest(testName, result);
 
 	testName = "searchListFound";
         beforeTest(testName);
-        result = nullNodeTest();
+        result = searchListFound();
         afterTest(testName, result);
+
+	testName = "reverseListTwoNodes";
+	beforeTest(testName);
+	result = reverseListTwoNodes();
+	afterTest(testName, result);
+	
+	testName = "reverseListThreeNodes";
+	beforeTest(testName);
+	result = reverseListThreeNodes();
+	afterTest(testName, result);
+
+	testName = "reverseListFourNodes";
+	beforeTest(testName);
+	result = reverseListFourNodes();
+	afterTest(testName, result);
 
 	//TODO: Add in your tests here
 
