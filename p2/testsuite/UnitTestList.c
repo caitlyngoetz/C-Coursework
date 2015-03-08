@@ -142,10 +142,19 @@ int nullNodeTest()
 	return 1;
 }
 
+int searchNullListTest()
+{
+	struct node *node = createTestNode(1);
+	struct node *found = search(NULL, node->obj);
+	myassert(found == NULL);
+	return 1;
+}
+
 int searchEmptyListTest()
 {
 	struct node *node = createTestNode(1);
-	search(NULL, node);
+	struct node *found = search(testlist, node->obj);
+	myassert(found == NULL);
 	freeNode(node, testlist->freeObject);
 	return 1;
 }
@@ -153,8 +162,13 @@ int searchEmptyListTest()
 int searchListNotFound()
 {
 	struct node *node = createTestNode(1);
-	search(testlist, node);
-	myassert(testlist->size == 0);
+	struct node *node2 = createTestNode(2);
+	addAtFront(testlist, node2);
+
+	struct node *found = search(testlist, node->obj);
+	myassert(testlist->size == 1);
+	myassert(found == NULL);
+
 	freeNode(node, testlist->freeObject);
 	return 1;
 }
@@ -165,9 +179,11 @@ int searchListFound()
 	struct node *node2 = createTestNode(2);
 	addAtFront(testlist, node);
 	addAtRear(testlist, node2);
-	
-	search(testlist, node2);
+	myassert(testlist->size == 2);	
+	struct node *found = search(testlist, node->obj);
+	myassert(found == node);
 	return 1;
+	
 }
 
 int reverseListTwoNodes()
@@ -260,6 +276,94 @@ int reverseListFourNodes()
 	myassert(testlist->head->prev == NULL);
 	return 1; 
 }
+
+int removeFrontTest()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	struct node *node3 = createTestNode(3);
+
+	addAtFront(testlist, node3);
+	addAtFront(testlist, node2);
+	addAtFront(testlist, node);
+
+	myassert(testlist->size == 3);
+	
+	struct node *removed = removeFront(testlist);
+
+	myassert(testlist->size == 2);
+	myassert(testlist->head == node2);
+	myassert(testlist->tail == node3);
+	myassert(testlist->head->prev == NULL);
+	myassert(testlist->tail->next == NULL);
+	myassert(removed == node);
+	return 1;
+}
+
+int removeRearTest()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	struct node *node3 = createTestNode(3);
+
+	addAtFront(testlist, node3);
+	addAtFront(testlist, node2);
+	addAtFront(testlist, node);
+
+	myassert(testlist->size == 3);
+	
+	struct node *removed = removeRear(testlist);
+
+	myassert(testlist->size == 2);
+	myassert(testlist->head == node);
+	myassert(testlist->tail == node2);
+	myassert(testlist->head->prev == NULL);
+	myassert(testlist->tail->next = NULL);
+	myassert(removed == node3);
+	return 1;
+}
+
+int getSizeTest()
+{
+	struct node *node = createTestNode(1);
+	struct node *node2 = createTestNode(2);
+	struct node *node3 = createTestNode(3);
+
+	addAtFront(testlist, node3);
+	addAtFront(testlist, node2);
+	addAtFront(testlist, node);
+	
+	myassert(testlist->size == 3);
+	struct node *size = getSize(testlist);
+
+	myassert(size == 3);
+	return 1;
+}
+
+int getSizeTest2()
+{
+	struct node *size = getSize(testlist);
+	myassert(size == 0);
+	return 1;
+}
+
+int isEmptyTest()
+{
+	struct node *node = createTestNode(1);
+	addAtFront(testlist, node);
+		
+	struct node *empty = isEmpty(testlist);
+		
+	myassert(empty != 0);
+	return 1;
+}
+
+int isEmptyTest2()
+{
+	struct node *empty = isEmpty(testlist);
+	myassert(empty == 0);
+	return 1;
+}
 void beforeTest(char* testName)
 {
 	printTestInfo(testName, "Running...");
@@ -316,6 +420,11 @@ void runUnitTests()
 	result = nullNodeTest();
 	afterTest(testName, result);
 
+	testName = "searchNullListTest";
+	beforeTest(testName);
+	result = searchNullListTest();
+	afterTest(testName, result);
+
 	testName = "searchEmptyListTest";
         beforeTest(testName);
         result = searchEmptyListTest();
@@ -346,6 +455,35 @@ void runUnitTests()
 	result = reverseListFourNodes();
 	afterTest(testName, result);
 
+	testName = "removeFrontTest";
+	beforeTest(testName);
+	result = removeFrontTest();
+	afterTest(testName, result);
+
+	testName = "removeRearTest";
+	beforeTest(testName);
+	result = removeRearTest();
+	afterTest(testName, result);
+
+	testName = "getSizeTest";
+	beforeTest(testName);
+	result = getSizeTest();
+	afterTest(testName, result);
+
+	testName = "getSizeTest2";
+	beforeTest(testName);
+	result = getSizeTest2();
+	afterTest(testName, result);
+
+	testName = "isEmptyTest";
+	beforeTest(testName);
+	result = isEmptyTest();
+	afterTest(testName, result);
+	
+	testName = "isEmptyTest2";
+	beforeTest(testName);
+	result = isEmptyTest2();
+	afterTest(testName, result);
 	//TODO: Add in your tests here
 
 	fprintf(stdout, "Test Cases: %d\n",  testCount);
