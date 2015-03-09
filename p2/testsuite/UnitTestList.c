@@ -51,6 +51,14 @@ int addAtFrontToNullListTest()
         return 1;
 }
 
+int addAtRearToNullListTest()
+{
+	struct node *node = createTestNode(1);
+	addAtRear(NULL, node);
+	freeNode(node, testlist->freeObject);
+	return 1;
+}
+
 int addAtFrontWithNoNodes()
 {
 	struct node *node = createTestNode(1);
@@ -128,6 +136,21 @@ int removeFromListWithOneNode()
 	myassert(testlist->head == NULL);
 	myassert(testlist->tail == NULL);
 	freeNode(node, testlist->freeObject);
+	return 1;
+}
+
+int removeNullList()
+{
+	struct node *node = createTestNode(1);
+	struct node *removed = removeNode(NULL, node);
+	myassert(removed == NULL);
+	return 1;
+}
+
+int removeNullNode()
+{
+	struct node *removed = removeNode(testlist, NULL);
+	myassert(removed == NULL);
 	return 1;
 }
 
@@ -277,6 +300,12 @@ int reverseListFourNodes()
 	return 1; 
 }
 
+int reverseListNullList()
+{
+	reverseList(NULL);
+	return 1;
+}
+
 int removeFrontTest()
 {
 	struct node *node = createTestNode(1);
@@ -300,6 +329,13 @@ int removeFrontTest()
 	return 1;
 }
 
+int removeFrontNullList()
+{
+	struct node *node = removeFront(NULL);
+	myassert(node == NULL);
+	return 1;
+}
+
 int removeRearTest()
 {
 	struct node *node = createTestNode(1);
@@ -318,8 +354,15 @@ int removeRearTest()
 	myassert(testlist->head == node);
 	myassert(testlist->tail == node2);
 	myassert(testlist->head->prev == NULL);
-	myassert(testlist->tail->next = NULL);
+	myassert(testlist->tail->next == NULL);
 	myassert(removed == node3);
+	return 1;
+}
+
+int removeRearNullList()
+{
+	struct node *node = removeRear(NULL);
+	myassert(node == NULL);
 	return 1;
 }
 
@@ -334,7 +377,7 @@ int getSizeTest()
 	addAtFront(testlist, node);
 	
 	myassert(testlist->size == 3);
-	struct node *size = getSize(testlist);
+	int size = getSize(testlist);
 
 	myassert(size == 3);
 	return 1;
@@ -342,7 +385,7 @@ int getSizeTest()
 
 int getSizeTest2()
 {
-	struct node *size = getSize(testlist);
+	int size = getSize(testlist);
 	myassert(size == 0);
 	return 1;
 }
@@ -352,18 +395,33 @@ int isEmptyTest()
 	struct node *node = createTestNode(1);
 	addAtFront(testlist, node);
 		
-	struct node *empty = isEmpty(testlist);
+	int empty = isEmpty(testlist);
 		
-	myassert(empty != 0);
+	myassert(empty == 0);
 	return 1;
 }
 
 int isEmptyTest2()
 {
-	struct node *empty = isEmpty(testlist);
-	myassert(empty == 0);
+	int empty = isEmpty(testlist);
+	myassert(empty != 0);
 	return 1;
 }
+
+int isEmptyNullList()
+{
+	int empty = isEmpty(NULL);
+	myassert(empty == 1);
+	return 1;
+}
+
+int getSizeNullList()
+{
+	int size = getSize(NULL);
+	myassert(size == 0);
+	return 1;
+}
+
 void beforeTest(char* testName)
 {
 	printTestInfo(testName, "Running...");
@@ -389,6 +447,11 @@ void runUnitTests()
         beforeTest(testName);
         result = addAtFrontToNullListTest();
         afterTest(testName, result);
+
+	testName = "addAtRearToNullListTest";
+	beforeTest(testName);
+	result = addAtRearToNullListTest();
+	afterTest(testName, result);
 
 	testName = "addAtFrontWithNoNodes";
 	beforeTest(testName);
@@ -484,6 +547,42 @@ void runUnitTests()
 	beforeTest(testName);
 	result = isEmptyTest2();
 	afterTest(testName, result);
+
+	testName = "getSizeNullList";
+	beforeTest(testName);
+	result = getSizeNullList();
+	afterTest(testName, result);
+
+	testName = "isEmptyNullList";
+	beforeTest(testName);
+	result = isEmptyNullList();
+	afterTest(testName, result);
+
+	testName = "reverseListNullList";
+	beforeTest(testName);
+	result = reverseListNullList();
+	afterTest(testName, result);
+
+	testName = "removeFrontNullList";
+	beforeTest(testName);
+	result = removeFrontNullList();
+	afterTest(testName, result);
+
+	testName = "removeRearNullList";
+	beforeTest(testName);
+	result = removeRearNullList();
+	afterTest(testName, result);
+
+	testName = "removeNullList";
+	beforeTest(testName);
+	result = removeNullList();
+	afterTest(testName, result);
+
+	testName = "removeNullNode";
+	beforeTest(testName);
+	result = removeNullNode();
+	afterTest(testName, result);
+
 	//TODO: Add in your tests here
 
 	fprintf(stdout, "Test Cases: %d\n",  testCount);
