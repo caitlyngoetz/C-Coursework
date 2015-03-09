@@ -10,18 +10,48 @@ OVERVIEW:
 	This program implements a doubly-linked list using nodes and generic objects.
 
 INCLUDED FILES:
+	
+	*doxygen-config - helps the program run like expected with the libraries.
+	*Makefile - the main Makefile that will compile all of the other libraries and place files in the right
+		    places.
+	*README - holds the command for the path so that the computer will be able to run all the seperate libraries		      together.	
+	
+	In the library called include:
+		*This should be empty until the program is compiled then the included headers in the program
+		will be passed into this directory.
+
+	In the library called lib:
+		*This should be empty until the program is compiled then the included libraries in the program 
+		will be passed into this directory.
+
+	In the library called libsrc:
+		*List.c - where the main code for the doubly-linked list is located 
+		*List.h - the header file for List.c that contains the method names of the methods in List.c
+		*Makefile - the Makefile for this library/directory so that the contents can be compiled
+		*Node.c - where the main code for the creation of the nodes is located
+		*Node.h - the header file for Node.c that contains the method names of the methods in Node.c
+		*README - the README that I created for documentation of this project 
+	
+	In the library called testsuite:
+		*Makefile - the Makefile for this library/directory so that the contents can be compiled
+		*Object.c - holds the code for creating objects to be held in the nodes for testing
+		*Object.h - the header file for Object.c that contains the method names of the methods in Object.c
+		*RandomTestList.c - holds the code for testing the doubly-linked list against
+		*SimpleTestList.c - holds the code for testing the doubly-linked list against
+		*UnitTestList.c - holds the extensive testing for the doubly-linked list
 
 	
 
 BUILDING AND RUNNING:
 
 	From the directory containing the source files type the following in the command line to compile the project:
-	$make
+		$make
 	
 	After that you can set up your console to run the program by typing this in the command line:
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 
 	Finally you can run the program by using the test file called UnitTestList by typing this in the command line:	
-	$testsuite/UnitTestList
+		$testsuite/UnitTestList
 
 PROGRAM DESIGN:
 
