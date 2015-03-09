@@ -144,6 +144,7 @@ int removeNullList()
 	struct node *node = createTestNode(1);
 	struct node *removed = removeNode(NULL, node);
 	myassert(removed == NULL);
+	freeNode(node, testlist->freeObject);
 	return 1;
 }
 
@@ -170,6 +171,7 @@ int searchNullListTest()
 	struct node *node = createTestNode(1);
 	struct node *found = search(NULL, node->obj);
 	myassert(found == NULL);
+	freeNode(node, testlist->freeObject);
 	return 1;
 }
 
@@ -326,6 +328,7 @@ int removeFrontTest()
 	myassert(testlist->head->prev == NULL);
 	myassert(testlist->tail->next == NULL);
 	myassert(removed == node);
+	freeNode(node, testlist->freeObject);
 	return 1;
 }
 
@@ -356,6 +359,7 @@ int removeRearTest()
 	myassert(testlist->head->prev == NULL);
 	myassert(testlist->tail->next == NULL);
 	myassert(removed == node3);
+	freeNode(node3, testlist->freeObject);
 	return 1;
 }
 
