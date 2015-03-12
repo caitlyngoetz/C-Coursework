@@ -73,7 +73,8 @@ void addAtRear(struct list *list, struct node *node)
 struct node* removeFront(struct list *list)
 {
 	if(list == NULL) return NULL;
-	
+	if(list->size == 0) return NULL;	
+
 	struct node *temp = list-> head;
 
 	if(list->size == 1){
@@ -82,12 +83,15 @@ struct node* removeFront(struct list *list)
 		list->head = list->head->next;
 		list->head->prev = NULL;
 	}
+	temp->next = NULL;
+	temp->prev = NULL;
 	list->size--;
 	return temp;
 }
 struct node* removeRear(struct list *list)
 {
 	if(list == NULL) return NULL;
+	if(list->size == 0) return NULL;
 	
 	struct node *temp = list->tail;
 
@@ -97,6 +101,8 @@ struct node* removeRear(struct list *list)
 		list->tail = list->tail->prev;
 		list->tail->next = NULL;
 	}
+	temp->next = NULL;
+	temp->prev = NULL;
 	list->size--;
 	return temp;
 }
@@ -104,6 +110,7 @@ struct node* removeRear(struct list *list)
 struct node* removeNode(struct list *list, struct node *node)
 {
 	if(list == NULL) return NULL;
+	if(list->size == 0) return NULL;
 	if(node == NULL) return NULL;
 
 	if(node == list->head){ 
@@ -116,6 +123,8 @@ struct node* removeNode(struct list *list, struct node *node)
 		node->next = node->prev = NULL;
 		list->size--;
 	}
+	node->next = NULL;
+	node->prev = NULL;
 	return node;
 	
 }
