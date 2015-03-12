@@ -492,13 +492,14 @@ int addNullNodesAndStuff()
 	
 
 	myassert(testlist->size == 0);
+	freeNode(node, testlist->freeObject);
 	return 1;
 }
 
 int removeNullNodesAndStuff()
 {
 	removeFront(testlist);
-//	removeFront(NULL);
+	removeFront(NULL);
 	
 	removeRear(testlist);
 	removeRear(NULL);
