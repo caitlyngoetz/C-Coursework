@@ -72,4 +72,9 @@ PROGRAM DEVELOPMENT AND TESTING DISCUSSION:
 	of a nice break from the usual mindnumbing confusion that usually comes with doing projects.  It was also
 	nice to remain constantly working on the project and not have to stop for help or take a break because I
 	didn't understand.  I wish more projects were like this!  (I am sure once I get a handle on this that other
-	projects will become this way)
+	projects will become this way).  
+	
+	After I turned it in the first time, there was found to be a segmentation fault originating from adding or
+	removing NULL nodes or lists.  After some testing I was able to discover it and fix it.  There was also some
+	dangling nodes which I also found and took care of.  So as far as I know, there are no issues/bugs in my
+	code.
