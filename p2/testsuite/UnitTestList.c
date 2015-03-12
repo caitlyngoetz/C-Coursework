@@ -426,6 +426,89 @@ int getSizeNullList()
 	return 1;
 }
 
+int addToFrontNullNodeToOneElement()
+{
+	struct node *node = createTestNode(1);
+	addAtRear(testlist, node);
+
+	addAtFront(testlist, NULL);
+	
+	myassert(testlist->size == 1);
+	myassert(testlist->head->next == NULL);
+	myassert(testlist->head->prev == NULL);
+	return 1;
+}
+
+int removeNullNodeToOneElement()
+{
+	struct node *node = createTestNode(1);
+	addAtFront(testlist, node);
+	
+	remove(NULL);
+
+	myassert(testlist->size == 1);
+	myassert(testlist->head == node);
+	return 1;
+}
+
+int addToRearNullNodeToOneElement()
+{
+	struct node *node = createTestNode(1);
+	addAtFront(testlist, node);
+	
+	addAtRear(testlist, NULL);
+
+	myassert(testlist->size == 1);
+	myassert(testlist->head == node);
+	return 1;
+}
+
+int addAtFrontNodeContainingNull()
+{
+	struct node *node = NULL;
+
+	addAtFront(testlist, node);
+
+	myassert(testlist->size == 0);
+	myassert(testlist->head == NULL);
+	myassert(testlist->tail == NULL);
+	return 1;
+}
+
+int addNullNodesAndStuff()
+{
+	struct node *node = createTestNode(1);
+	addAtFront(testlist, NULL);
+	addAtFront(testlist, NULL);
+	addAtFront(testlist, NULL);
+	addAtFront(NULL, NULL);
+	addAtFront(testlist, NULL);
+	addAtFront(testlist, NULL);
+	addAtFront(NULL, node);
+	
+	addAtRear(testlist, NULL);
+	addAtRear(NULL, NULL);
+	addAtRear(NULL, node);
+	
+
+	myassert(testlist->size == 0);
+	return 1;
+}
+
+int removeNullNodesAndStuff()
+{
+	removeFront(testlist);
+//	removeFront(NULL);
+	
+	removeRear(testlist);
+	removeRear(NULL);
+	
+	remove(NULL);
+
+	myassert(testlist->size == 0);
+	return 1;
+}
+
 void beforeTest(char* testName)
 {
 	printTestInfo(testName, "Running...");
@@ -446,6 +529,36 @@ void runUnitTests()
 {
 	int result;
 	char *testName;
+
+	testName = "removeNullNodesAndStuff";
+	beforeTest(testName);
+	result = removeNullNodesAndStuff();
+	afterTest(testName, result);
+
+	testName = "addNullNodesAndStuff";
+	beforeTest(testName);
+	result = addNullNodesAndStuff();
+	afterTest(testName, result);
+
+	testName = "addAtFrontNodeContainingNull";
+	beforeTest(testName);
+	result = addAtFrontNodeContainingNull();
+	afterTest(testName, result);
+
+	testName = "addToRearNullNodetoOneElement";
+	beforeTest(testName);
+	result = addToRearNullNodeToOneElement();
+	afterTest(testName, result);
+	
+	testName = "removeNullNodeToOneElement";
+	beforeTest(testName);
+	result = removeNullNodeToOneElement();
+	afterTest(testName, result);
+
+	testName = "addToFrontNullNodeToOneElement";
+	beforeTest(testName);
+	result = addToFrontNullNodeToOneElement();
+	afterTest(testName, result);
 
         testName = "addAtFrontToNullListTest";
         beforeTest(testName);
