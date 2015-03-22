@@ -12,6 +12,8 @@
 const int MAX_LINE_LENGTH = 2048;
 const char * delimiters = " 0123456789\t;{}()[].#<>\n\r+-/%*\"^~&=!|:\\?,";
 
+
+
 int main(int argc, char *argv[]) {
 	if(argc != 2){
 		printf("Usage: %s", argv[0]);
@@ -33,9 +35,11 @@ int main(int argc, char *argv[]) {
 		char *nextWord;
 		struct WordObj *word;
 		nextWord = strtok(buffer, delimiters);
+		//Changes it to lower case?
+		lowerWord = tolower(nextWord);
 		while(nextWord != NULL){
 			totalCount++;
-			word = createWordObj(nextWord, totalCount);	
+			word = createWordObj(lowerWord, totalCount);	
 			nextWord = strtok(NULL, delimiters);
 		}
 	}
