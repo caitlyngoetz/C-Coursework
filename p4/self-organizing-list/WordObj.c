@@ -2,9 +2,9 @@
 
 //creates and returns a pointer to a new word object with the given string and
 //frequency.
-struct word * createWordObj(const char *word, const unisgned long int frequency)
+WordObjPtr createWordObj(const char *word, const unisgned long int frequency)
 {
-	sturct word* newWordObj = (struct word*) malloc (sizeof(struct word));
+	struct word* newWordObj = (struct word*) malloc (sizeof(struct word));
 	newWordObj->word = word;
 	newWordObj->frequency = frequency;
 	return newWordObj;
