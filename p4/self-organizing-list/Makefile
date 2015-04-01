@@ -10,19 +10,15 @@ CFLAGS=-Wall -g  -I$(INCLUDE)
 
 
 
-PROGS=RandomTestList SimpleTestList UnitTestList
+PROGS=wf WordObj
 
 all: $(PROGS)
 
 
-RandomTestList: RandomTestList.o Object.o
+wf: wf.o
 	$(CC) $(CFLAGS) -o $@ $^  $(LFLAGS)
-
-SimpleTestList: SimpleTestList.o 
-	$(CC) $(CFLAGS) -o $@ SimpleTestList.o   $(LFLAGS)
-
-UnitTestList: UnitTestList.o Object.o
-	$(CC) $(CFLAGS) -o $@ $^   $(LFLAGS)
+WordObj: WordObj.o 
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
 	rm --force list *.o $(PROGS)
