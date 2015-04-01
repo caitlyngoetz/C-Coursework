@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include "WordObj.h"
 
 const int MAX_LINE_LENGTH = 2048;
 const char * delimiters = " 0123456789\t;{}()[].#<>\n\r+-/%*\"^~&=!|:\\?,";
@@ -33,15 +34,11 @@ int main(int argc, char *argv[]) {
 	while(fgets(buffer, sizeof(buffer), fin)){
 		//Break line into words
 		char *nextWord;
-		struct WordObj *word;
 		nextWord = strtok(buffer, delimiters);
-		//Changes it to lower case?
-		lowerWord = tolower(nextWord);
-		while(lowerWord != NULL){
+		while(nextWord != NULL){
 			totalCount++;
-			word = createWordObj(lowerWord, totalCount);	
+			wordObj word = createWordObj(nextWord, totalCount);	
 			nextWord = strtok(NULL, delimiters);
-			lowerWord = tolower(nextWord);
 		}
 	}
 	return 0;
