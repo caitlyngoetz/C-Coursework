@@ -1,36 +1,30 @@
+
 INSTALL=..
-LIB=$(INSTALL)/lib
-INCLUDE=$(INSTALL)/include
+INCLUDE=$(INSTALL)/include -I.
+LIBS=$(INSTALL)/lib
+LFLAGS=-L$(LIBS) -lmylib
 CC=gcc
-CFLAGS=-Wall -g -fPIC -shared -I$(INCLUDE)/
-LFLAGS=-L$(LIB) -lmylib
+CFLAGS=-Wall -g  -I$(INCLUDE)
 
 
-LIBOBJS=WordObj.o wf.o
-
-all: libs
 
 
-libs: libmylib.so  libmylib.a
 
-libmylib.so: $(LIBOBJS)
-	$(LD) -shared -fPIC -o $@  $(LIBOBJS)
+PROGS=RandomTestList SimpleTestList UnitTestList
 
-libmylib.a: $(LIBOBJS)
-	$(AR)  rcv $@ $(LIBOBJS)
-	ranlib $@
+all: $(PROGS)
 
 
-install: libs
-	install --mode=644  WordObj.h $(INCLUDE)/
-	install --mode=755  libmylib.so $(LIB)/libmylib.so
-	install --mode=755  libmylib.a $(LIB)/libmylib.a
+RandomTestList: RandomTestList.o Object.o
+	$(CC) $(CFLAGS) -o $@ $^  $(LFLAGS)
 
-installclean:  clean
-	rm --force $(LIB)/libmylib.so
-	rm --force $(LIB)/libmylib.a
-	rm --force $(INCLUDE)/WordObj.h
+SimpleTestList: SimpleTestList.o 
+	$(CC) $(CFLAGS) -o $@ SimpleTestList.o   $(LFLAGS)
+
+UnitTestList: UnitTestList.o Object.o
+	$(CC) $(CFLAGS) -o $@ $^   $(LFLAGS)
 
 clean:
-	rm --force list *.o a.out core libmylib.a libmylib.so
+	rm --force list *.o $(PROGS)
+
 
