@@ -37,10 +37,11 @@ int main(int argc, char *argv[]) {
 		nextWord = strtok(buffer, delimiters);
 		//Changes it to lower case?
 		lowerWord = tolower(nextWord);
-		while(nextWord != NULL){
+		while(lowerWord != NULL){
 			totalCount++;
 			word = createWordObj(lowerWord, totalCount);	
 			nextWord = strtok(NULL, delimiters);
+			lowerWord = tolower(nextWord);
 		}
 	}
 	return 0;
