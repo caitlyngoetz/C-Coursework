@@ -8,6 +8,7 @@ library:
 
 testcode:
 	cd testsuite; make
+	cd self-organizing-list; make
 
 
 dox:
@@ -18,5 +19,6 @@ dox:
 clean:
 	cd libsrc; make installclean
 	cd testsuite; make clean
+	cd self-organizing-list; make clean
 	/bin/rm -fr docs doxygen.log
 
