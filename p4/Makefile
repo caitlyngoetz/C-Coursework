@@ -1,6 +1,6 @@
 
 
-all: library testcode
+all: library testcode buildself
 
 
 library:	
@@ -8,8 +8,9 @@ library:
 
 testcode:
 	cd testsuite; make
+	
+buildself:
 	cd self-organizing-list; make
-
 
 dox:
 	echo "Generating documentation using doxygen..."
