@@ -5,7 +5,7 @@
 WordObjPtr createWordObj(const char *word, const unisgned long int frequency)
 {
 	struct word* newWordObj = (struct word*) malloc (sizeof(struct word));
-	newWordObj->word = word;
+	newWordObj->word = strlwr(word);
 	newWordObj->frequency = frequency;
 	return newWordObj;
 }
