@@ -9,16 +9,13 @@ CFLAGS=-Wall -g  -I$(INCLUDE)
 
 
 
+PROGS=wf 
 
-PROGS=wf WordObj
-
-all: $(PROGS)
+all: $(PROGS) 
 
 
-wf: wf.o
+wf: wf.c WordObj.c 
 	$(CC) $(CFLAGS) -o $@ $^  $(LFLAGS)
-WordObj: WordObj.o 
-	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 clean:
 	rm --force list *.o $(PROGS)
