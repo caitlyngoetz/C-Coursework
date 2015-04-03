@@ -54,16 +54,16 @@ int main(int argc, char *argv[]) {
 			for(i=0; i<list->size; i++){
 				if(search(list, lowerWord)){
 					//increment probes
-					list->obj->frequency += 1;
-					totalCount++;
-			}
-			else{
-			struct word * word = createWordObj(lowerWord, totalCount);
-			struct node * nodeWord = createNode(word);
-			addAtFront(list, nodeWord);
-			//increment probes
-			nextWord = strtok(buffer, delimiters);
-			lowerWord = toLower(nextWord);
+					//DO IT!!!
+				}
+				else{
+				struct word * word = createWordObj(lowerWord, totalCount);
+				struct node * nodeWord = createNode(word);
+				addAtFront(list, nodeWord);
+				//increment probes
+				nextWord = strtok(buffer, delimiters);
+				lowerWord = toLower(nextWord);
+				}
 			}
 		}
 	}
