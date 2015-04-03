@@ -9,10 +9,9 @@ CFLAGS=-Wall -g  -I$(INCLUDE)
 
 
 
-PROGS=wf 
+PROGS=wf  
 
 all: $(PROGS) 
-
 
 wf: wf.c WordObj.c 
 	$(CC) $(CFLAGS) -o $@ $^  $(LFLAGS)
