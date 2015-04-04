@@ -16,10 +16,9 @@ char * toString(const void * obj)
 	WordObjPtr myword = (WordObjPtr) obj;
         char *temp;
         int max_data = strlen(myword->word)+1;
-       	max_data += MAX_WORD_LENGTH;
 	max_data += MAX_FREQ_DIGITS;
-        temp = (char *)malloc(sizeof(char)*max_data);
-        snprintf(temp, max_data, "[%ld] %s", myword->frequency, myword->word);
+        temp = (char *)malloc(sizeof(max_data));
+        snprintf(temp, max_data, "%s %lu", myword->word, myword->frequency);
         return temp;	
 }
 
