@@ -20,7 +20,7 @@ struct word
 	unsigned long int frequency;
 };
 
-WordObjPtr createWordObj(const char *word, const unsigned long int frequency);
+WordObjPtr createWordObj(char *word, const unsigned long int frequency);
 char *toString(const void * obj);
 void freeWordObj(void * obj);
 int equals(const void * obj1, const void * obj2);

@@ -1,11 +1,13 @@
 #include "WordObj.h"
+#include <string.h>
 
 //creates and returns a pointer to a new word object with the given string and
 //frequency.
-WordObjPtr createWordObj(const char *word, const unsigned long int frequency)
+WordObjPtr createWordObj(char *word, const unsigned long int frequency)
 {
 	WordObjPtr newWordObj = (WordObjPtr) malloc (sizeof(WordObj));
 	newWordObj->word = (char *) malloc(sizeof(char)*(strlen(word)+1));
+	strcpy(newWordObj->word, word);
 	newWordObj->frequency = frequency;
 	return newWordObj;
 }
@@ -14,12 +16,9 @@ WordObjPtr createWordObj(const char *word, const unsigned long int frequency)
 char * toString(const void * obj)
 {
 	WordObjPtr myword = (WordObjPtr) obj;
-        char *temp;
-        int max_data = strlen(myword->word)+1;
-	max_data += MAX_FREQ_DIGITS;
-        temp = (char *)malloc(sizeof(max_data));
-        snprintf(temp, max_data, "%s %lu", myword->word, myword->frequency);
-        return temp;	
+        char *temp = (char *)malloc(sizeof(char)*MAX_WORD_LENGTH +2+sizeof(int));
+        sprintf(temp, "%s %lu", myword->word, myword->frequency);
+	return temp;	
 }
 
 //Frees the word and then the word object itself
@@ -37,5 +36,5 @@ int equals(const void * obj1, const void * obj2)
 {
 	WordObjPtr o1 = (WordObjPtr) obj1;
 	WordObjPtr o2 = (WordObjPtr) obj2;
-	return o1->word == o2->word;
+	return strcmp(o1->word, o2->word);
 }
