@@ -28,13 +28,11 @@ char * toLowercase(char * c){
 
 int main(int argc, char *argv[]) {
 struct list *list = createList(equals, toString, freeWordObj);
-	//printf("\ninto main\n");
 	if(argc != 3){
 		printf("Usage: %s {--self-organized-list|--std-list} <textfile>\n", argv[0]);
 		exit(0);
 	}
-	//printf("after first if\n");
-	
+		
 	FILE *fin;
 	fin = fopen(argv[2], "r");
 	if (!fin){
@@ -42,83 +40,60 @@ struct list *list = createList(equals, toString, freeWordObj);
 		exit(errno);
 	}
 
-	//printf("read in file\n");	
-
 	//Read line-by line
 	char buffer[MAX_LINE_LENGTH];
 	while(fgets(buffer, sizeof(buffer), fin)){
 		//Break line into words
-	//	printf("into first while loop\n");
-		char * nextWord;
-		nextWord = strtok(buffer, delimiters);
-		int frequency = 0;
+		char *lowerWord;
+		lowerWord = strtok(buffer, delimiters);
 		if(strcmp(argv[1], "--std-list") == 0){
-	//		printf("into std list\n");
-			while(nextWord != NULL){
-	//			printf("into while loop\n");
-				char * lowerWord =(char *) (toLowercase(nextWord));
-				printf("here:  %s\n", lowerWord);
-				if(search(list, lowerWord) != NULL){
+			while(lowerWord){
+			lowerWord =(char *) (toLowercase(lowerWord));
+			WordObjPtr lowerPtr = createWordObj(lowerWord, 1);	
+				if(search(list, lowerPtr) != NULL){
 					//increment frequency
-					struct node* temp = search(list, lowerWord);
-					WordObjPtr theWord = (WordObjPtr) temp->obj;
-					frequency = theWord->frequency++;
-					WordObjPtr word = createWordObj(lowerWord, frequency);
-					struct node * nodeWord = createNode(word);
-					addAtFront(list, nodeWord);
-	//				printf("found\n");
+					struct node*temp = search(list, lowerPtr);
+					WordObjPtr wordTemp = temp->obj;
+					wordTemp->frequency++;
 				}else{
-	//				printf("%s\n", nextWord);
-					frequency = 1;
-					WordObjPtr word = createWordObj(lowerWord, frequency);
-					struct node * nodeWord = createNode(word);
+					struct node *nodeWord = createNode(lowerPtr);
 					addAtFront(list, nodeWord);
-	//				printf("new\n");
 				}
-				nextWord = strtok(NULL, delimiters);
-	//			printf("grabbed new word\n");
-				frequency = 0;
+				lowerWord = strtok(NULL, delimiters);
 			}
-			//perror("out of loop");
-			struct node * current = list->head;
-			while(current){
-				WordObjPtr myword= (WordObjPtr) current->obj;
-				printf("test: %s %lu\n", myword->word, myword->frequency); 
-				char * temp = toString(current->obj);
-				printf("%s\n", temp);
-				free(temp);
-				current = current->next;
-			}
-			free(current);
+			
 
 		}else if(strcmp(argv[1], "--self-organized-list") == 0){
-			while(nextWord != NULL){
-				char * lowerWord = toLowercase(nextWord);
-				if(search(list, lowerWord) != NULL){
+			while(lowerWord){
+			lowerWord =(char *) (toLowercase(lowerWord));
+			WordObjPtr lowerPtr = createWordObj(lowerWord, 1);	
+				if(search(list, lowerPtr) != NULL){
 					//increment frequency
-					struct node * temp = search(list, lowerWord);
-					WordObjPtr theWord = (WordObjPtr) temp->obj;
-					frequency = theWord->frequency++;
-					
-					WordObjPtr word = createWordObj(lowerWord, frequency);
-                                        struct node * nodeWord = createNode(word);
-                                        addAtFront(list, nodeWord);
+					struct node*temp = search(list, lowerPtr);
+					WordObjPtr wordTemp = temp->obj;
+					wordTemp->frequency++;
+					removeNode(list, temp);
+					addAtFront(list, temp);
 				}else{
-					frequency = 1;
-					WordObjPtr word = createWordObj(lowerWord, frequency);
-                                        struct node * nodeWord = createNode(word);
-                                        addAtFront(list, nodeWord);
+					struct node *nodeWord = createNode(lowerPtr);
+					addAtFront(list, nodeWord);
 				}
-			nextWord = strtok(NULL, delimiters);
-			frequency = 0;
+				lowerWord = strtok(NULL, delimiters);
 			}
-		}
-		else{
+
+		}else{
 			printf("Usage: %s {--self-organized-list|--std-list} <testfile>\n", argv[0]);
 			exit(0);
 		}
 
 	}
-
+	fclose(fin);
+	struct node *current = list->head;
+	while(current){
+		char *temp = list->toString(current->obj);
+		printf("%s\n", temp);
+		free(temp);
+		current = current->next;
+	}
 	return 0;
 }
