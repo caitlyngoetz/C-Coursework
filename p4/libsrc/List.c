@@ -136,7 +136,7 @@ struct node* search(const struct list *list, const void *obj)
 
 	struct node *curr = list->head;
 	while(curr != NULL){
-		if((list->equals)(curr->obj, obj)){
+		if((list->equals(curr->obj, obj)) == 0){
 			return curr;
 		}	
 		curr = curr->next;
