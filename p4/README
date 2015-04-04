@@ -47,10 +47,10 @@ BUILDING AND RUNNING:
 		$make
 	
 	After that you can set up your console to run the program by typing this in the command line:
-		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib:./lib
 
 	Finally you can run the program by using the test file called UnitTestList by typing this in the command line:	
-		$testsuite/UnitTestList
+		$./self-organizing-list/wf
 
 PROGRAM DESIGN:
 
