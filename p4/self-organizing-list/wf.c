@@ -60,6 +60,7 @@ struct list *list = createList(equals, toString, freeWordObj);
 					addAtFront(list, nodeWord);
 				}
 				lowerWord = strtok(NULL, delimiters);
+				//free word obj
 			}
 			
 
@@ -95,5 +96,7 @@ struct list *list = createList(equals, toString, freeWordObj);
 		free(temp);
 		current = current->next;
 	}
+//free list
+	
 	return 0;
 }
