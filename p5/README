@@ -1,0 +1,32 @@
+*******************************
+*Project 5:
+*Class: CompSci 253-001
+*Date: April 24, 2015
+*Name: Caitlyn Goetz
+*******************************
+
+OVERVIEW:
+
+INCLUDED FILES:
+
+	*seq-random.c -
+	*thread-random.c -
+	*timing.c -
+	*Makefile -
+	*README - this file.
+
+BUILDING AND RUNNING:
+	From the directory containing the source files type the following in the command line to compile the project:
+		$make
+
+	You can run the program by using the executable and typing the arguments for the following command:
+		$thread-random <numberOfRandoms> <numThreads>
+
+	Where numberOfRandoms is the amount of random numbers that the program should generate.
+	And where numThreads is the amount of threads you want generated.
+
+PROGRAM DESIGN:
+
+PROGRAM DEVELOPMENT AND TESTING DISSCUSSION:
+
+PERFORMANCE:
