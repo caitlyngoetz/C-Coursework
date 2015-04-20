@@ -14,16 +14,15 @@
 void generateRandomNumbers(long long);  
 double getMilliSeconds();
 
-int count;
 
 /* The main work routine */
-void generateRandomNumbers(long long int threadId)  
+void generateRandomNumbers(long long int count)  
 {
 	long long int i;
 	long int x;
 
 	srandom(RANDOM_SEED);
-    for (i = 0; i < threadId; i++) {
+    for (i = 0; i < count; i++) {
 		x = random();
 		printf("%ld\n", x);
   	}
@@ -32,7 +31,7 @@ void generateRandomNumbers(long long int threadId)
 
 int main(int argc, char **argv)
 {
-	long long int threadId;
+	long long int count;
 
     double timeStart = 0;
     double timeElapsed = 0;
@@ -41,11 +40,11 @@ int main(int argc, char **argv)
         fprintf(stderr, "Usage: %s <n>\n" ,argv[0]);
         exit(1);
     }
-    sscanf(argv[1],"%lld",&threadId); /* lld for long long int */
+    sscanf(argv[1],"%lld",&count); /* lld for long long int */
 
     timeStart = getMilliSeconds();	//And we are off
-    generateRandomNumbers(threadId);
-	printf("generated %lld random numbers\n", threadId);
+    generateRandomNumbers(count);
+	printf("generated %lld random numbers\n", count);
 
     timeElapsed = getMilliSeconds() - timeStart;
     printf("Elapsed time:  %lf seconds\n",(double)(timeElapsed/1000.0));
