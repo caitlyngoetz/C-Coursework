@@ -8,11 +8,10 @@
 OVERVIEW:
 
 INCLUDED FILES:
-
-	*seq-random.c -
-	*thread-random.c -
-	*timing.c -
-	*Makefile -
+	*seq-random.c - file that contains code that was the basis of theard-random.  Uses thread one thread to do a process.
+	*thread-random.c - Uses multiple threads to complete a process.
+	*timing.c - keeps the timing for th threads so that they know when they can join together and when to start.
+	*Makefile - creates the executable and compiles the files for the project.  Also cleans up when done.
 	*README - this file.
 
 BUILDING AND RUNNING:
@@ -27,6 +26,14 @@ BUILDING AND RUNNING:
 
 PROGRAM DESIGN:
 
+	This program reads in the number of threads that the user wants the program to use and the amount of random numbers
+	that they want generated.  Then the program creats that many amount of threads in order to speed up the process of 
+	making the random numbers.  Since they share the load the program does run faster.
+
 PROGRAM DEVELOPMENT AND TESTING DISSCUSSION:
+	I wasn't quite sure what the thread-random program wanted.  The write-up wasn't very difficult to read but it was hard
+	to understand what it wanted from me.  If a skeleton code was supplied or a specification of what was needed to pass
+	in as arguements for the methods would have been a lot better.  Other than that it went fairly smoothly once I got
+	over my procrastination and the wonderful weather outside :)
 
 PERFORMANCE:
