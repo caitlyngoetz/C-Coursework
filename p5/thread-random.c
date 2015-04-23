@@ -11,25 +11,32 @@
 #define BUFSIZE 32
 
 //The main work routine
-void generateRandomNumbers(void *args);  
+void * generateRandomNumbers(void *args);  
 double getMilliSeconds();
 long long int count;
+long int threads;
 
 
 /* The main work routine */
-void generateRandomNumbers(void *args)  
+void * generateRandomNumbers(void *args)  
 {
+	void * threadId = args;
 	struct random_data *rdata = (struct random_data *) malloc(sizeof(struct random_data));
 	char *statebuf = (char*) malloc(sizeof(char) * BUFSIZE);
 
 	int32_t value;
 	
 	initstate_r(*(int *) threadId, statebuf, BUFSIZE, rdata);
-	int status = random_r (rdata, &value);
+	int i;
+	int status = 0;
+	for(i = 0; i < count/threads; i++){
+		status = random_r (rdata, &value);
+	}
 	if(status != 0){
 		perror("random_r");
 		exit(status);
 	}
+	return NULL;
 }
 
 
@@ -48,6 +55,7 @@ int main(int argc, char **argv)
 
 	int i;
 	int *value = 0;
+	threads = atoi(argv[2]);
 	int n = atoi(argv[1]);
 	pthread_t *tid = (pthread_t *) malloc(sizeof(pthread_t) * n);
 	for(i = 0; i < n; i++){
