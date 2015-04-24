@@ -1,4 +1,4 @@
-//TURN OFF PRINT STATEMENTS!!!!!!!!!!!!!!!!!!!
+
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,65 +11,74 @@
 #define BUFSIZE 32
 
 //The main work routine
-void * generateRandomNumbers(void *args);  
+void * generateRandomNumbers(void *threadId);  
 double getMilliSeconds();
-long long int count;
-long int threads;
+long long int numRandoms = 0;
+int numThreads = 0;
 
 
 /* The main work routine */
-void * generateRandomNumbers(void *args)  
+void * generateRandomNumbers(void *threadId)  
 {
-	void * threadId = args;
-	struct random_data *rdata = (struct random_data *) malloc(sizeof(struct random_data));
-	char *statebuf = (char*) malloc(sizeof(char) * BUFSIZE);
-
-	int32_t value;
-	
-	initstate_r(*(int *) threadId, statebuf, BUFSIZE, rdata);
 	int i;
-	int status = 0;
-	for(i = 0; i < count/threads; i++){
-		status = random_r (rdata, &value);
+	long long int x;
+
+	struct random_data *rdata = (struct random_data *) malloc(sizeof(struct random_data));
+	char *statebuf = (char*)malloc(sizeof(char)*BUFSIZE);
+	int32_t value;
+	initstate_r(*((int *)threadId), statebuf, BUFSIZE, rdata);
+
+	int nRandom = (numRandoms/numThreads);
+	
+	if(numThreads == *((int *)threadId) + 1){
+		nRandom += (numRandoms%numThreads);
 	}
-	if(status != 0){
-		perror("random_r");
-		exit(status);
+	for(i = 0; i <nRandom; i++){
+		x = random_r(rdata, &value);
+		if(x != 0){
+			perror("random_r");
+			exit(x);
+		}
+	//	printf("%d\n", value);
 	}
-	return NULL;
+	pthread_exit(NULL);
 }
 
 
 int main(int argc, char **argv)
 {
-    double timeStart = 0;
-    double timeElapsed = 0;
-
-    if (argc < 3) {
-    	fprintf(stderr, "Usage: thread-random <numberOfRandoms> <numThreads>\n");
-    	exit(1);
-    }
-    sscanf(argv[1],"%lld",&count); /* lld for long long int */
-
-    timeStart = getMilliSeconds();	//And we are off
-
-	int i;
+    int i;
 	int *value = 0;
-	threads = atoi(argv[2]);
-	int n = atoi(argv[1]);
-	pthread_t *tid = (pthread_t *) malloc(sizeof(pthread_t) * n);
-	for(i = 0; i < n; i++){
-		value = (int *) malloc(sizeof(int));
+	pthread_t *tid;
+
+	double timeStart = 0;
+	double timeElapsed = 0;
+
+	if(argc < 2){
+		fprintf(stderr, "Usage: thread-random <numberOfRandoms> <numThreads>\n");
+		exit(1);
+	}
+
+	numRandoms = atoi(argv[1]);
+	numThreads = atoi(argv[2]);
+
+	tid = (pthread_t *)malloc(sizeof(pthread_t) * numThreads);
+	for(i = 0; i < numThreads; i++){
+		value = (int *)malloc(sizeof(int));
 		*value = i;
 		pthread_create(&tid[i], NULL, generateRandomNumbers, (void *)value);
 	}
-	for(i = 0; i < n; i++){
+
+	for(i = 0; i < numThreads; i++)
 		pthread_join(tid[i], NULL);
-	}
 
-    timeElapsed = getMilliSeconds() - timeStart;
-    printf("Elapsed time:  %lf seconds\n",(double)(timeElapsed/1000.0));
-    fflush(stdout);
+	timeStart = getMilliSeconds();
+	printf("generated %lld random numbers\n", numRandoms);
 
-    return 0;
+	timeElapsed = getMilliSeconds() - timeStart;
+	printf("Elapsed time: %lf seconds\n", (double)(timeElapsed/1000.0));
+	fflush(stdout);
+
+	exit(0);
+	return 0;
 }
