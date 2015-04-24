@@ -6,6 +6,8 @@
 *******************************
 
 OVERVIEW:
+	This program takes in the number of threads and random numbers that the user wants to generate.  It then uses the 
+	threads to create the amount of random numbers.
 
 INCLUDED FILES:
 	*seq-random.c - file that contains code that was the basis of theard-random.  Uses thread one thread to do a process.
