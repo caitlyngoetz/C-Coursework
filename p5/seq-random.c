@@ -19,12 +19,12 @@ double getMilliSeconds();
 void generateRandomNumbers(long long int count)  
 {
 	long long int i;
-	long int x;
+	//long int x;
 
 	srandom(RANDOM_SEED);
     for (i = 0; i < count; i++) {
-		x = random();
-		printf("%ld\n", x);
+	//	x = random();
+//		printf("%ld\n", x);
   	}
 }
 
