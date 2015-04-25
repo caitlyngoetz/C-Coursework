@@ -23,28 +23,25 @@ void * generateRandomNumbers(void *threadId)
 	int i;
 	long long int count;
 
-	struct random_data *rdata = (struct random_data *) malloc(sizeof(struct random_data));
-	char *statebuf = (char*)malloc(sizeof(char)*BUFSIZE);
+	struct random_data rdata = {};
+	char statebuf [BUFSIZE];
 	int32_t value;
-	initstate_r = 0;
-	initstate_r(*((int *)threadId), statebuf, BUFSIZE, rdata);
+	initstate_r(*((int *)threadId), statebuf, BUFSIZE, &rdata);
 
 	int numRandom = (randoms/threads);
 	
 	if(threads == *((int *)threadId) + 1){
 		numRandom += (randoms%threads);
 	}
-	for(i = 0; i <numRandom; i++){
-		count = random_r(rdata, &value);
+	for(i = 0; i < numRandom; i++){
+		count = random_r(&rdata, &value);
 		if(count != 0){
 			perror("random_r");
 			exit(count);
 		}
-	//	printf("%d\n", value);
 	}
-	free(statebuf);
-	free(rdata);
-	pthread_exit(NULL);
+	free((int *) threadId);
+	return NULL;
 }
 
 
@@ -82,7 +79,6 @@ int main(int argc, char **argv)
 	printf("Elapsed time: %lf seconds\n", (double)(timeElapsed/1000.0));
 	fflush(stdout);
 
-	free(value);
 	free(tid);
 	exit(0);
 	return 0;
