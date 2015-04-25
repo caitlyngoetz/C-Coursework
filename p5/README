@@ -40,28 +40,28 @@ PROGRAM DEVELOPMENT AND TESTING DISSCUSSION:
 
 PERFORMANCE:
 	seq-random 2000000000 
-	Elasped time: 0.679372 seconds
+	Elasped time: 0.729548 seconds
 
 	thread-random 2000000000 1
-	Elasped time: 0.000044 seconds
+	Elasped time: 0.000077 seconds
 
 	thread-random 2000000000 2
-	Elasped time: 0.000052 seconds
+	Elasped time: 0.000029 seconds
 
 	thread-random 2000000000 5
-	Elasped time: 0.000036 seconds
+	Elasped time: 0.000039 seconds
 
 	thread-random 2000000000 10
-	Elasped time: 0.000032 seconds
+	Elasped time: 0.000053 seconds
 
 	thread-random 2000000000 50
-	Elasped time: 0.000060 seconds
+	Elasped time: 0.000049 seconds
 
 	thread-random 2000000000 100
-	Elasped time: 0.000061 seconds
+	Elasped time: 0.000046 seconds
 
 	thread-random 2000000000 500
-	Elasped time: 0.000091 seconds
+	Elasped time: 0.000062 seconds
 
 	thread-random 2000000000 1000
-	Elasped time: 0.000065 seconds
+	Elasped time: 0.000045 seconds
