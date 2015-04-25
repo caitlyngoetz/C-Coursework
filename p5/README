@@ -39,3 +39,29 @@ PROGRAM DEVELOPMENT AND TESTING DISSCUSSION:
 	over my procrastination and the wonderful weather outside :)
 
 PERFORMANCE:
+	seq-random 2000000000 
+	Elasped time: 0.679372 seconds
+
+	thread-random 2000000000 1
+	Elasped time: 0.000044 seconds
+
+	thread-random 2000000000 2
+	Elasped time: 0.000052 seconds
+
+	thread-random 2000000000 5
+	Elasped time: 0.000036 seconds
+
+	thread-random 2000000000 10
+	Elasped time: 0.000032 seconds
+
+	thread-random 2000000000 50
+	Elasped time: 0.000060 seconds
+
+	thread-random 2000000000 100
+	Elasped time: 0.000061 seconds
+
+	thread-random 2000000000 500
+	Elasped time: 0.000091 seconds
+
+	thread-random 2000000000 1000
+	Elasped time: 0.000065 seconds
