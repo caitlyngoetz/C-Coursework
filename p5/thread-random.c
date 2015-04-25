@@ -13,34 +13,37 @@
 //The main work routine
 void * generateRandomNumbers(void *threadId);  
 double getMilliSeconds();
-long long int numRandoms = 0;
-int numThreads = 0;
+long long int randoms = 0;
+int threads = 0;
 
 
 /* The main work routine */
 void * generateRandomNumbers(void *threadId)  
 {
 	int i;
-	long long int x;
+	long long int count;
 
 	struct random_data *rdata = (struct random_data *) malloc(sizeof(struct random_data));
 	char *statebuf = (char*)malloc(sizeof(char)*BUFSIZE);
 	int32_t value;
+	initstate_r = 0;
 	initstate_r(*((int *)threadId), statebuf, BUFSIZE, rdata);
 
-	int nRandom = (numRandoms/numThreads);
+	int numRandom = (randoms/threads);
 	
-	if(numThreads == *((int *)threadId) + 1){
-		nRandom += (numRandoms%numThreads);
+	if(threads == *((int *)threadId) + 1){
+		numRandom += (randoms%threads);
 	}
-	for(i = 0; i <nRandom; i++){
-		x = random_r(rdata, &value);
-		if(x != 0){
+	for(i = 0; i <numRandom; i++){
+		count = random_r(rdata, &value);
+		if(count != 0){
 			perror("random_r");
-			exit(x);
+			exit(count);
 		}
 	//	printf("%d\n", value);
 	}
+	free(statebuf);
+	free(rdata);
 	pthread_exit(NULL);
 }
 
@@ -59,26 +62,28 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	numRandoms = atoi(argv[1]);
-	numThreads = atoi(argv[2]);
+	randoms = atoi(argv[1]);
+	threads = atoi(argv[2]);
 
-	tid = (pthread_t *)malloc(sizeof(pthread_t) * numThreads);
-	for(i = 0; i < numThreads; i++){
+	tid = (pthread_t *)malloc(sizeof(pthread_t) * threads);
+	for(i = 0; i < threads; i++){
 		value = (int *)malloc(sizeof(int));
 		*value = i;
 		pthread_create(&tid[i], NULL, generateRandomNumbers, (void *)value);
 	}
 
-	for(i = 0; i < numThreads; i++)
+	for(i = 0; i < threads; i++)
 		pthread_join(tid[i], NULL);
 
 	timeStart = getMilliSeconds();
-	printf("generated %lld random numbers\n", numRandoms);
+	printf("generated %lld random numbers\n", randoms);
 
 	timeElapsed = getMilliSeconds() - timeStart;
 	printf("Elapsed time: %lf seconds\n", (double)(timeElapsed/1000.0));
 	fflush(stdout);
 
+	free(value);
+	free(tid);
 	exit(0);
 	return 0;
 }
